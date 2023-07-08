@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import "package:go_router/go_router.dart";
+import 'package:sauve_mes_feds/controlleur/stateManagerUsers.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -26,11 +28,12 @@ class HomePage extends StatelessWidget {
 
 //Introduction onBoarding par des display https://pub.dev/packages/introduction_screen/install
 
-class Profil extends StatelessWidget {
+class Profil extends ConsumerWidget {
   const Profil({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final user = ref.read(userProvider);
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -40,7 +43,7 @@ class Profil extends StatelessWidget {
           radius: 25,
         ),
         Text(
-          "![greeting] [nom de l'utilisateur]",
+          "![greeting] ${user.fullname}",
           style: Theme.of(context).textTheme.bodyMedium,
         )
       ],

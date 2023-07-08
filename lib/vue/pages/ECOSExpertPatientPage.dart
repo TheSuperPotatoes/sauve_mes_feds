@@ -2,12 +2,16 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sauve_mes_feds/vue/componants/index.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sauve_mes_feds/controlleur/index.dart';
 
-class ECOSPatientExpertPage extends StatelessWidget {
-  const ECOSPatientExpertPage({super.key});
-
+class ECOSPatientExpertPage extends ConsumerWidget {
+  ECOSPatientExpertPage({super.key, required this.caseOSCE});
+  CaseOSCE caseOSCE;
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    //A refactoriser!
+
     return WillPopScope(
       onWillPop: () async {
         // Code à exécuter lorsque le bouton "Retour" est appuyé
@@ -55,7 +59,7 @@ class ECOSPatientExpertPage extends StatelessWidget {
                     style: Theme.of(context).textTheme.headlineMedium,
                   ),
                   Text(
-                    "[str name_categorie] : [str name_cas]",
+                    "${caseOSCE.speciality}: ${caseOSCE.nameCas}",
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
                   Divider(
@@ -70,10 +74,10 @@ class ECOSPatientExpertPage extends StatelessWidget {
                   SizedBox(
                       height: MediaQuery.of(context).size.height - 188,
                       width: MediaQuery.of(context).size.width,
-                      child: const TabBarView(children: [
+                      child: TabBarView(children: [
                         Padding(
                           padding: EdgeInsets.all(10.0),
-                          child: PatientView(),
+                          child: PatientView(caseOSCE: caseOSCE),
                         ),
                         ExpertView()
                       ]))
@@ -113,18 +117,17 @@ class ExpertView extends StatelessWidget {
 }
 
 class PatientView extends StatelessWidget {
-  const PatientView({
-    super.key,
-  });
-
+  PatientView({super.key, required this.caseOSCE});
+  CaseOSCE caseOSCE;
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Column(
         children: [
-          Text("Cas [STR name_cas]",
+          Text("Cas '${caseOSCE.nameCas}'",
               style: Theme.of(context).textTheme.headlineMedium),
           Situation(),
+          Anamnese(),
           Text("Il reste: [Timer]",
               style: Theme.of(context).textTheme.headlineSmall),
         ],

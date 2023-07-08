@@ -33,10 +33,9 @@ class _CasesPagesState extends ConsumerState<CasesPages> {
   Widget build(BuildContext context) {
     //filtre la liste selon la spécialité séléctionnée
     var listCases = ref
-        .watch(CaseOSCEProvider)
+        .watch(caseOSCEProvider)
         .where((element) => element.speciality == widget.specialityName)
         .toList();
-    print(listCases.length);
     return WillPopScope(
       onWillPop: () {
         context.go("/sujets");

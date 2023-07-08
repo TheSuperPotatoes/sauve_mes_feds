@@ -30,7 +30,8 @@ CaseOSCE cas1 = CaseOSCE(
   speciality: "urgence",
   id: 1,
   nameCas: "Une douleure au thorax",
-  resume: "Patient/e de 55 ans avec des douleurs thoraciques",
+  resume:
+      "une femme de 42 ans qui se présente à la clinique avec des douleurs lombaires et de la fièvre",
   isExpert: true,
   isDocteur: true,
   isPatient: true,
@@ -77,5 +78,5 @@ class CaseOSCEList extends StateNotifier<List<CaseOSCE>> {
   //TO DO implemants CRUD logic here
 }
 
-final CaseOSCEProvider = StateNotifierProvider<CaseOSCEList, List<CaseOSCE>>(
+final caseOSCEProvider = StateNotifierProvider<CaseOSCEList, List<CaseOSCE>>(
     (ref) => CaseOSCEList([cas1, cas2, cas3, cas4]));

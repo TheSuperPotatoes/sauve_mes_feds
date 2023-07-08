@@ -1,7 +1,8 @@
 import "package:flutter/material.dart";
 import 'package:go_router/go_router.dart';
-import "package:sauve_mes_feds/controlleur/stateManagerSpecialities.dart";
 import "../vue/mainIndex.dart";
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'index.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _shellNavigatorKey = GlobalKey<NavigatorState>();
@@ -49,10 +50,21 @@ final GoRouter router = GoRouter(
           },
         ),
         GoRoute(
-          path: '/sujet/:idSubjects/:id_case/role/:role', //mettre id
+          path: '/sujet/:idSubjects/:idCase/role/:role', //mettre id
           pageBuilder: (context, state) {
             //mettre une fonction switch
-            return MaterialPage<dynamic>(child: ECOSPatientExpertPage());
+            String speciality = state.pathParameters["idSubjects"]!;
+            String idCase = state.pathParameters["idCase"]!;
+            final container = ProviderContainer();
+            final casesOSCE = container
+                .read(caseOSCEProvider)
+                .where((element) =>
+                    element.id == idCase && element.speciality == speciality)
+                .toList();
+            container.dispose();
+
+            return MaterialPage<dynamic>(
+                child: ECOSPatientExpertPage(caseOSCE: casesOSCE[0]));
           },
         ),
         GoRoute(
