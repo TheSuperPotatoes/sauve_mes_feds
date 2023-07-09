@@ -1,4 +1,5 @@
 // Generated code for this TabBar Widget...
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sauve_mes_feds/vue/componants/index.dart';
@@ -6,11 +7,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sauve_mes_feds/controlleur/index.dart';
 
 class ECOSPatientExpertPage extends ConsumerWidget {
-  ECOSPatientExpertPage({super.key, required this.caseOSCE});
-  CaseOSCE caseOSCE;
+  ECOSPatientExpertPage(
+      {super.key, required this.idCase, required this.speciality});
+  String idCase;
+  String speciality;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    //A refactoriser!
+    final caseOSCE = ref.read(caseOSCEProvider).firstWhere((items) =>
+        items.id == int.parse(idCase) && items.speciality == speciality);
+    ;
 
     return WillPopScope(
       onWillPop: () async {
@@ -75,9 +80,11 @@ class ECOSPatientExpertPage extends ConsumerWidget {
                       height: MediaQuery.of(context).size.height - 188,
                       width: MediaQuery.of(context).size.width,
                       child: TabBarView(children: [
-                        Padding(
-                          padding: EdgeInsets.all(10.0),
-                          child: PatientView(caseOSCE: caseOSCE),
+                        SingleChildScrollView(
+                          child: Padding(
+                            padding: EdgeInsets.all(5.0),
+                            child: PatientView(caseOSCE: caseOSCE),
+                          ),
                         ),
                         ExpertView()
                       ]))
@@ -100,7 +107,7 @@ class ExpertView extends StatelessWidget {
         child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Situation(),
+        Situation(resume: "A mettre"),
         Padding(
           padding: const EdgeInsets.fromLTRB(0, 20, 0, 5),
           child: Text("Anamnèse",
@@ -116,22 +123,111 @@ class ExpertView extends StatelessWidget {
   }
 }
 
+/*______________PATIENT_______________________*/
 class PatientView extends StatelessWidget {
   PatientView({super.key, required this.caseOSCE});
   CaseOSCE caseOSCE;
   @override
   Widget build(BuildContext context) {
+    PatientOSCE patientOSCE = caseOSCE.patientOSCE!;
+    var mapAnemenseActuelle = patientOSCE.anamneses[0].anamaneseActuelle!;
     return Container(
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("Cas '${caseOSCE.nameCas}'",
-              style: Theme.of(context).textTheme.headlineMedium),
-          Situation(),
-          Anamnese(),
+          Situation(resume: patientOSCE.resume),
+          Text("Anamnèse", style: Theme.of(context).textTheme.headlineMedium),
+          SizedBox(
+            height: 10,
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              IgnorePointer(
+                child: ListView.builder(
+                  padding: EdgeInsets.zero,
+                  shrinkWrap: true,
+                  itemCount: mapAnemenseActuelle.length, // a refaire
+                  itemBuilder: (context, index) {
+                    final key = mapAnemenseActuelle.keys.elementAt(index);
+                    final value = mapAnemenseActuelle[key];
+                    return ListsItems(
+                        itemValue: value,
+                        itemKey: key,
+                        nullText: "Pas spécifié");
+                  },
+                ),
+              ),
+              for (var anamnese in patientOSCE.anamneses)
+                //anamnese
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(anamnese.section,
+                        style: Theme.of(context).textTheme.headlineSmall),
+                    Text(anamnese.description,
+                        style: Theme.of(context).textTheme.bodyMedium),
+                    SizedBox(
+                      height: 8,
+                    ),
+                  ],
+                ),
+              Text("Habitudes",
+                  style: Theme.of(context).textTheme.headlineMedium),
+              //habitudes à refactoriser
+              Column(
+                children: [
+                  ListsItems(
+                      itemValue: patientOSCE.habitude.alcool,
+                      itemKey: "Alcool",
+                      nullText: "Aucune"),
+                  ListsItems(
+                      itemValue: patientOSCE.habitude.drogue,
+                      itemKey: "Drogue",
+                      nullText: "Aucune"),
+                  ListsItems(
+                      itemValue: patientOSCE.habitude.medicaments,
+                      itemKey: "Médicament",
+                      nullText: "Aucun"),
+                  ListsItems(
+                      itemValue: patientOSCE.habitude.alimentation,
+                      itemKey: "Alimentation",
+                      nullText: "Équilibrée"),
+                  ListsItems(
+                      itemValue: patientOSCE.habitude.sexualite,
+                      itemKey: "Séxualité",
+                      nullText: "Dernier rapport 1 jour, protégé"),
+                ],
+              ),
+            ],
+          ),
           Text("Il reste: [Timer]",
               style: Theme.of(context).textTheme.headlineSmall),
         ],
       ),
+    );
+  }
+}
+
+class ListsItems extends StatelessWidget {
+  const ListsItems(
+      {super.key,
+      required this.itemValue,
+      required this.itemKey,
+      required this.nullText});
+
+  final String? itemValue;
+  final String itemKey;
+  final String nullText;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(itemKey, style: Theme.of(context).textTheme.bodySmall),
+        itemValue != null ? Text(itemValue!) : Text(nullText),
+      ],
     );
   }
 }
@@ -146,15 +242,19 @@ class Challenge extends StatelessWidget {
 }
 
 class Situation extends StatelessWidget {
-  const Situation({super.key});
+  Situation({super.key, required this.resume});
+  String resume;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Divider(thickness: 2, color: Colors.black),
-        Text("Situation: [STR resume]",
-            style: Theme.of(context).textTheme.headlineMedium),
+        Text("Situation:", style: Theme.of(context).textTheme.headlineMedium),
+        Text(
+          resume,
+          textAlign: TextAlign.justify,
+        ),
         Divider(thickness: 2, color: Colors.black),
         Challenge()
       ],

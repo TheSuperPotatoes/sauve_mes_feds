@@ -40,11 +40,13 @@ final GoRouter router = GoRouter(
           },
         ),
         GoRoute(
-          path: '/sujet/:idSubjects/:id_case/role', //mettre id
+          path: '/sujet/:idSubjects/:idCase/role', //mettre id
           pageBuilder: (context, state) {
             String speciality = state.pathParameters["idSubjects"]!;
+            String idCase = state.pathParameters["idCase"]!;
             return MaterialPage<dynamic>(
                 child: RolePage(
+              idCase: idCase,
               speciality: speciality,
             ));
           },
@@ -55,16 +57,10 @@ final GoRouter router = GoRouter(
             //mettre une fonction switch
             String speciality = state.pathParameters["idSubjects"]!;
             String idCase = state.pathParameters["idCase"]!;
-            final container = ProviderContainer();
-            final casesOSCE = container
-                .read(caseOSCEProvider)
-                .where((element) =>
-                    element.id == idCase && element.speciality == speciality)
-                .toList();
-            container.dispose();
 
             return MaterialPage<dynamic>(
-                child: ECOSPatientExpertPage(caseOSCE: casesOSCE[0]));
+                child: ECOSPatientExpertPage(
+                    idCase: idCase, speciality: speciality));
           },
         ),
         GoRoute(

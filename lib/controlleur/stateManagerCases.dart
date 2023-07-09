@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sauve_mes_feds/controlleur/stateManagerSpecialities.dart';
+
 import "index.dart";
 
 @immutable
@@ -9,6 +9,7 @@ class CaseOSCE {
       {required this.speciality,
       required this.nameCas,
       required this.resume,
+      this.patientOSCE,
       this.isExpert = false,
       this.isDocteur = false,
       this.isPatient = false,
@@ -17,6 +18,7 @@ class CaseOSCE {
 
   late int? id;
   String speciality;
+  PatientOSCE? patientOSCE;
   final String nameCas;
   final String resume;
   final bool isExpert;
@@ -29,13 +31,14 @@ class CaseOSCE {
 CaseOSCE cas1 = CaseOSCE(
   speciality: "urgence",
   id: 1,
-  nameCas: "Une douleure au thorax",
+  nameCas: "Une douleure au rein",
   resume:
       "une femme de 42 ans qui se présente à la clinique avec des douleurs lombaires et de la fièvre",
   isExpert: true,
   isDocteur: true,
   isPatient: true,
   isFav: false,
+  patientOSCE: patientUrgence1,
 );
 
 CaseOSCE cas4 = CaseOSCE(
@@ -76,6 +79,11 @@ class CaseOSCEList extends StateNotifier<List<CaseOSCE>> {
       : super(initateSpeciality ?? []);
 
   //TO DO implemants CRUD logic here
+
+  CaseOSCE getCase(id, speciality) {
+    return state.firstWhere(
+        (items) => items.id == int.parse(id) && items.speciality == speciality);
+  }
 }
 
 final caseOSCEProvider = StateNotifierProvider<CaseOSCEList, List<CaseOSCE>>(
