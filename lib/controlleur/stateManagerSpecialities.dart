@@ -26,17 +26,6 @@ SpecialityOSCE immunologie = const SpecialityOSCE(
 class SpecialitiesOSCEList extends StateNotifier<List<SpecialityOSCE>> {
   SpecialitiesOSCEList([List<SpecialityOSCE>? initateSpeciality])
       : super(initateSpeciality ?? []);
-
-  //TO DO implemants logic here
-  void add(String nameSpe, String descriptionSpe) {
-    state = [
-      ...state,
-      SpecialityOSCE(
-        nameSpectiality: nameSpe,
-        descSpectiality: descriptionSpe,
-      ),
-    ];
-  }
 }
 
 //StateNotiferProvider: init state

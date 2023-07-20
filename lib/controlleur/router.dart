@@ -29,6 +29,12 @@ final GoRouter router = GoRouter(
           },
         ),
         GoRoute(
+          path: '/about',
+          pageBuilder: (context, state) {
+            return MaterialPage<dynamic>(child: AboutPage());
+          },
+        ),
+        GoRoute(
           path: '/sujet/:idSubjects', //mettre id
 
           pageBuilder: (context, state) {

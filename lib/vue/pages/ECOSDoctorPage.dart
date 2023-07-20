@@ -1,9 +1,12 @@
 // Generated code for this TabBar Widget...
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import "package:sauve_mes_feds/models/index.dart";
+import "package:sauve_mes_feds/models/init.dart";
 
 class ECOSDoctorPage extends StatelessWidget {
-  const ECOSDoctorPage({super.key});
+  ECOSDoctorPage({super.key});
+  DoctorCase content = docteurUrgence1;
   //instaurer un ötate avec StateProvider pour médecin/expert/patient
   @override
   Widget build(BuildContext context) {
@@ -49,48 +52,55 @@ class ECOSDoctorPage extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Text(
-                    "Vous êtes stagiaire au cabinet du Dr.Rochat",
+                    content.placeInit,
                     style: Theme.of(context).textTheme.titleLarge,
                     textAlign: TextAlign.center,
                   ),
                 ),
                 Text("[Temps restant]",
                     style: Theme.of(context).textTheme.headlineLarge),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Text("Situation",
                     style: Theme.of(context).textTheme.titleLarge),
                 Text(
                     """'A pellentesque sit amet porttitor eget dolor morbi non arcu risus quis varius quam quisque id diam vel quam elementum pulvinar etiam non quam lacus suspendisse faucibus interdum posuere lorem ipsum dolor sit amet consectetur'""",
+                    textAlign: TextAlign.justify,
                     style: Theme.of(context).textTheme.bodyMedium),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Text("Constante",
                     style: Theme.of(context).textTheme.titleLarge),
-                Row(
-                  children: [
-                    Text("Pression"),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Text("[valeure]")
-                  ],
-                ),
-                Row(
-                  children: [Text("Pression"), Text("[valeure]")],
-                ),
-                Row(
-                  children: [Text("Pression"), Text("[valeure]")],
-                ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
+                ListsItemsDoctor(map: content.constantes),
                 Text("Objectifs",
                     style: Theme.of(context).textTheme.titleLarge),
-                Text("Vous avez 13 minutes pour"),
-                SizedBox(
+                Text("Vous avez 13 minutes pour",
+                    style: Theme.of(context).textTheme.headlineSmall),
+                Column(
+                  children: [
+                    for (var i = 0; i < content.objectifs.length; i++)
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+                            child: Text(i.toString(),
+                                style:
+                                    Theme.of(context).textTheme.headlineSmall),
+                          ),
+                          Text(
+                            content.objectifs[i],
+                          ),
+                        ],
+                      ),
+                  ],
+                ),
+                const SizedBox(
                   height: 20,
                 ),
                 Text("Examens complémentaires",
@@ -99,6 +109,34 @@ class ECOSDoctorPage extends StatelessWidget {
               ],
             )),
       ),
+    );
+  }
+}
+
+class ListsItemsDoctor extends StatelessWidget {
+  ListsItemsDoctor({super.key, required this.map});
+  Map<String, dynamic> map;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      shrinkWrap: true,
+      itemCount: map.length,
+      itemBuilder: (BuildContext context, int index) {
+        String key = map.keys.elementAt(index);
+        dynamic value = map[key];
+
+        // Utilisez key et value pour afficher les données dans votre widget
+        // par exemple, utilisez un ListTile pour chaque élément du Map
+
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(key, style: Theme.of(context).textTheme.bodySmall),
+            Text(value.toString()),
+          ],
+        );
+      },
     );
   }
 }

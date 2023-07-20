@@ -54,7 +54,7 @@ class ListsViews extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: MediaQuery.of(context).size.height - 203,
+      height: MediaQuery.of(context).size.height - 257,
       width: MediaQuery.of(context).size.width,
       child: ListView.builder(
           shrinkWrap: true,

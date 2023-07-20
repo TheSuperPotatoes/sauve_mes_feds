@@ -37,6 +37,7 @@ dependencies:
   go_router: ^9.0.0
   introduction_screen: ^3.1.9
   flutter_riverpod: ^2.3.6
+  intl: ^0.18.1
 
 dev_dependencies:
   flutter_test:

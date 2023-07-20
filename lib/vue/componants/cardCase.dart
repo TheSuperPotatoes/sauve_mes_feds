@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import "package:go_router/go_router.dart";
 import 'package:sauve_mes_feds/controlleur/index.dart';
-
+import "package:sauve_mes_feds/models/index.dart";
 //peut-être changer statefulWidget
 
 class CardCase extends StatefulWidget {
@@ -15,7 +15,6 @@ class CardCase extends StatefulWidget {
 
 // refactoriser, extrait composants done et not done, mettre arguments
 class _CardCaseState extends State<CardCase> {
-  bool _isDone = false;
   bool _isFav = false;
 
   @override
@@ -27,7 +26,10 @@ class _CardCaseState extends State<CardCase> {
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 15, vertical: 7),
           child: Container(
-            height: 80,
+            constraints: new BoxConstraints(
+              minHeight: 80.0,
+              maxHeight: 100.0,
+            ),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(4),
               color: Theme.of(context).colorScheme.primary,
@@ -100,8 +102,11 @@ class _CardCaseState extends State<CardCase> {
                       ]),
                   Row(
                     children: [
-                      Text("${widget.caseOSCE.resume} ",
-                          style: Theme.of(context).textTheme.labelMedium),
+                      Expanded(
+                        child: Text("${widget.caseOSCE.resume} ",
+                            softWrap: true,
+                            style: Theme.of(context).textTheme.labelMedium),
+                      ),
                     ],
                   ),
                 ],

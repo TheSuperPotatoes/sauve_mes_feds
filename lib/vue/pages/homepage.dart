@@ -85,7 +85,7 @@ class Navigator extends StatelessWidget {
               description: "Kékia développé ce truc?",
               color: Theme.of(context).colorScheme.secondary,
               icons: Icons.album,
-              route: () {})
+              route: () => context.push('/about'))
         ],
       )
     ]);
