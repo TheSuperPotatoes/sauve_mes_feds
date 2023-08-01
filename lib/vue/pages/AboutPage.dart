@@ -14,30 +14,35 @@ class AboutPage extends StatelessWidget {
           child: Padding(
               padding: const EdgeInsets.all(15.0),
               child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Text("Sauv'MesFeds",
-                        style: Theme.of(context).textTheme.headlineLarge),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    Column(
                       children: [
-                        Text("A propos",
-                            style: Theme.of(context).textTheme.bodyLarge),
-                        const Placeholder(
-                          fallbackHeight: 30,
-                          fallbackWidth: 30,
+                        SizedBox(
+                          height: 80,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Text("Concernant cette app",
+                                style: Theme.of(context).textTheme.bodyLarge),
+                          ],
+                        ),
+                        const Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 8.0),
+                          child: Text(
+                            "Il s'agit d'une application open-source afin d'aider les étudiants à se préparer au mieux aux examens fédéraux. Il n'a aucune prétention à remplacer les révisions, mais il s'agit d'une aide pour vous aider dans la réussite de vos examens. Il a été développé par un étudiant en médecine, un peu limité intelectuellement sur les bords qui c'est lancé dans cette petite avanture. Si vous voulez le soutenir das ce petit périple, offrez-lui un café ;). En espérant que cela va vous être utile. ",
+                            textAlign: TextAlign.justify,
+                          ),
+                        ),
+                        Text(
+                          "-V.N",
+                          textAlign: TextAlign.end,
                         ),
                       ],
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: Text(
-                        "Il s'agit d'une application open-source afin d'aider les étudiants à se préparer au mieux aux examens fédéral. Il n'a aucune prétention à remplacer les révisions, mais il s'agit d'une aide pour réussir au mieux vos examen. Il a été développé par un étudiant en médecine, un peu limité intelectuellement sur les bords. En espérant que cela va vous êtres utiles.",
-                        textAlign: TextAlign.justify,
-                      ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                    const Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Text("Buy Me a coffee"),
                         Text("github depository")

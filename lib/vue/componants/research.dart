@@ -18,14 +18,14 @@ class ResearchBar extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10),
                   borderSide: BorderSide.none),
               hintText: 'Rechercher',
-              hintStyle: TextStyle(color: Colors.grey, fontSize: 18),
-              prefixIcon: Container(
+              hintStyle: const TextStyle(color: Colors.grey, fontSize: 18),
+              prefixIcon: const SizedBox(
+                width: 18,
                 child: Icon(
                   Icons.search,
                   size: 20,
                   color: Colors.black,
                 ),
-                width: 18,
               )),
         ),
       ),

@@ -36,12 +36,13 @@ class TimerNotifier extends StateNotifier<TimerManager> {
   void dispose() {
     _timer?.cancel();
     super.dispose;
+    print("Has been dispose");
   }
 
   void startTimer() {
     _timer?.cancel();
 
-    _timer = Timer.periodic(Duration(seconds: 1), (_) {
+    _timer = Timer.periodic(const Duration(seconds: 1), (_) {
       if (state.timeLeft > 0) {
         state = state.copyWith(timeLeft: state.timeLeft - 1);
         print(state.timeLeft);

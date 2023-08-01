@@ -2,8 +2,7 @@
 
 import 'package:flutter/material.dart';
 import "package:go_router/go_router.dart";
-import 'package:sauve_mes_feds/controlleur/index.dart';
-import "package:sauve_mes_feds/models/index.dart";
+import 'package:sauve_mes_feds/index/indexModels.dart';
 //peut-être changer statefulWidget
 
 class CardCase extends StatefulWidget {
@@ -24,9 +23,9 @@ class _CardCaseState extends State<CardCase> {
               '/sujet/${widget.caseOSCE.speciality}/${widget.caseOSCE.id}/role',
             ),
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15, vertical: 7),
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 7),
           child: Container(
-            constraints: new BoxConstraints(
+            constraints: const BoxConstraints(
               minHeight: 80.0,
               maxHeight: 100.0,
             ),
@@ -53,7 +52,7 @@ class _CardCaseState extends State<CardCase> {
                       children: [
                         Row(
                           children: [
-                            Text("${widget.caseOSCE.nameCas}",
+                            Text(widget.caseOSCE.nameCas,
                                 style:
                                     Theme.of(context).textTheme.headlineSmall),
                             IconButton(
@@ -62,7 +61,7 @@ class _CardCaseState extends State<CardCase> {
                                     _isFav = !_isFav;
                                   });
                                   final snackBar = SnackBar(
-                                    duration: Duration(seconds: 1),
+                                    duration: const Duration(seconds: 1),
                                     backgroundColor:
                                         Theme.of(context).colorScheme.tertiary,
                                     content: _isFav
@@ -88,15 +87,15 @@ class _CardCaseState extends State<CardCase> {
                         Row(
                           children: [
                             Icon(widget.caseOSCE.isDocteur
-                                ? Icons.abc
-                                : Icons.abc_outlined),
+                                ? Icons.medication
+                                : Icons.medication),
                             Icon(widget.caseOSCE.isExpert
-                                ? Icons.access_alarm
-                                : Icons.access_alarm_outlined),
+                                ? Icons.edit_note
+                                : Icons.edit_note),
                             Icon(widget.caseOSCE.isPatient
-                                ? Icons.access_time
-                                : Icons.access_time_outlined),
-                            Icon(Icons.chevron_right_rounded),
+                                ? Icons.personal_injury
+                                : Icons.personal_injury),
+                            const Icon(Icons.chevron_right_rounded),
                           ],
                         )
                       ]),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import "package:go_router/go_router.dart";
-import 'package:sauve_mes_feds/controlleur/stateManagerUsers.dart';
+import 'package:sauve_mes_feds/user/stateManagerUsers.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -18,7 +18,7 @@ class HomePage extends StatelessWidget {
                   style: Theme.of(context).textTheme.headlineLarge),
             ]),
             const Profil(),
-            const Navigator()
+            const NavigatorSection()
           ]),
         ),
       ),
@@ -51,8 +51,8 @@ class Profil extends ConsumerWidget {
   }
 }
 
-class Navigator extends StatelessWidget {
-  const Navigator({super.key});
+class NavigatorSection extends StatelessWidget {
+  const NavigatorSection({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -63,28 +63,29 @@ class Navigator extends StatelessWidget {
         children: [
           CardItems(
               title: "QCM",
-              description: "En construction...",
-              color: Theme.of(context).colorScheme.background,
-              icons: Icons.album,
-              route: () {}),
+              description: "Phase test",
+              color: Theme.of(context).colorScheme.secondaryContainer,
+              icons: Icons.quiz,
+              route: () => context.push("/MCQ")),
           CardItems(
             title: "ECOS",
-            description: "Prépare toi à crach er sur le patient",
+            description: "Prépare toi à cracher sur le patient",
             color: Theme.of(context).colorScheme.secondary,
-            icons: Icons.album,
+            icons: Icons.microwave,
             route: () => context.push('/sujets'),
           ),
           CardItems(
               title: "Profil",
-              description: "Tes scores, tes performances et ta tronche",
-              color: Theme.of(context).colorScheme.secondary,
-              icons: Icons.album,
+              description:
+                  "Tes scores, tes performances et ta tronche. Pour l'instant en développement",
+              color: Colors.grey,
+              icons: Icons.person,
               route: () {}),
           CardItems(
               title: "A propos de nous",
               description: "Kékia développé ce truc?",
               color: Theme.of(context).colorScheme.secondary,
-              icons: Icons.album,
+              icons: Icons.lightbulb,
               route: () => context.push('/about'))
         ],
       )
@@ -111,21 +112,41 @@ class CardItems extends StatelessWidget {
     return GestureDetector(
       onTap: route,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8),
+        padding: const EdgeInsets.all(8),
         child: Card(
           color: color,
-          child: ListTile(
-            leading: Icon(
-              icons,
-              size: 20,
-            ),
-            title: Text(
-              title,
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-            subtitle: Text(
-              description,
-              style: Theme.of(context).textTheme.bodyMedium,
+          child: ConstrainedBox(
+            constraints: BoxConstraints(minHeight: 60),
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Icon(
+                        icons,
+                        size: 20,
+                      ),
+                    ),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            title,
+                            style: Theme.of(context).textTheme.headlineMedium,
+                          ),
+                          Text(
+                            description,
+                            softWrap: true,
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
           ),
         ),

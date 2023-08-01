@@ -1,8 +1,7 @@
 import "package:flutter/material.dart";
 import 'package:go_router/go_router.dart';
-import "../vue/mainIndex.dart";
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'index.dart';
+import 'package:sauve_mes_feds/MCQ/MCQPage.dart';
+import '../index/indexVue.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _shellNavigatorKey = GlobalKey<NavigatorState>();
@@ -19,19 +18,19 @@ final GoRouter router = GoRouter(
         GoRoute(
           path: '/',
           pageBuilder: (BuildContext context, GoRouterState state) {
-            return MaterialPage<dynamic>(child: HomePage());
+            return const MaterialPage<dynamic>(child: HomePage());
           },
         ),
         GoRoute(
           path: '/sujets',
           pageBuilder: (context, state) {
-            return MaterialPage<dynamic>(child: SpeciliatiesPages());
+            return const MaterialPage<dynamic>(child: SpeciliatiesPages());
           },
         ),
         GoRoute(
           path: '/about',
           pageBuilder: (context, state) {
-            return MaterialPage<dynamic>(child: AboutPage());
+            return const MaterialPage<dynamic>(child: AboutPage());
           },
         ),
         GoRoute(
@@ -74,7 +73,12 @@ final GoRouter router = GoRouter(
           pageBuilder: (context, state) {
             return MaterialPage<dynamic>(child: ECOSDoctorPage());
           },
-        )
+        ),
+        GoRoute(
+            path: "/MCQ",
+            pageBuilder: (context, state) {
+              return MaterialPage<dynamic>(child: MCQPage());
+            })
       ],
     ),
   ],

@@ -29,7 +29,7 @@ class _TimerState extends ConsumerState<Timer> {
           color: Theme.of(context).colorScheme.secondary,
           borderRadius: BorderRadius.circular(4)),
       child: Padding(
-        padding: EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
             LinearProgressIndicator(
@@ -40,7 +40,7 @@ class _TimerState extends ConsumerState<Timer> {
               children: [
                 Column(
                   children: [
-                    Text("Temps restant"),
+                    const Text("Temps restant"),
                     Text(
                       temps,
                       style: Theme.of(context).textTheme.headlineMedium,
@@ -56,18 +56,18 @@ class _TimerState extends ConsumerState<Timer> {
                         },
                         icon:
                             timer.buttonState != ButtonState.PAUSED //Play icon
-                                ? Icon(Icons.pause, size: 40)
-                                : Icon(
+                                ? const Icon(Icons.pause, size: 40)
+                                : const Icon(
                                     Icons.play_arrow,
                                     size: 40,
                                   ),
                       ),
-                    SizedBox(width: 10),
+                    const SizedBox(width: 10),
                     IconButton(
                       onPressed: () {
                         ref.watch(timerProvider.notifier).restart();
                       },
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.restart_alt,
                         size: 40,
                       ),
@@ -80,6 +80,5 @@ class _TimerState extends ConsumerState<Timer> {
         ),
       ),
     );
-    ;
   }
 }

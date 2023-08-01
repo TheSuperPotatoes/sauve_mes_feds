@@ -39,13 +39,17 @@ final ThemeData mainTheme = ThemeData(
             fontSize: 28, fontWeight: FontWeight.w500, color: Colors.black),
         bodyMedium: TextStyle(
             fontSize: 13, fontWeight: FontWeight.w500, color: Colors.black),
+        labelLarge: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.w500,
+            color: Color.fromARGB(255, 140, 152, 167)),
         labelMedium: TextStyle(
             fontSize: 13,
-            fontWeight: FontWeight.w500,
-            color: Color.fromARGB(255, 141, 156, 173)),
+            fontWeight: FontWeight.w400,
+            color: Color.fromARGB(255, 140, 152, 167)),
         labelSmall: TextStyle(
             fontSize: 10,
-            fontWeight: FontWeight.w500,
-            color: Color.fromARGB(255, 141, 156, 173))));
+            fontWeight: FontWeight.w300,
+            color: Color.fromARGB(255, 140, 152, 167))));
 
 final ThemeData specialTheme = ThemeData();
